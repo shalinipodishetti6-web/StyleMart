@@ -10,33 +10,33 @@ export default function Orders() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchUserOrders();
-  }, []);
-
-  const fetchUserOrders = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        navigate('/login');
-        return;
-      }
-
-      const response = await axios.get('http://localhost:5000/api/orders/user-orders', {
-        headers: {
-          Authorization: `Bearer ${token}`
+    const fetchUserOrders = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          navigate('/login');
+          return;
         }
-      });
 
-      if (response.data.success) {
-        setOrders(response.data.orders || []);
+        const response = await axios.get('http://localhost:5000/api/orders/user-orders', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (response.data.success) {
+          setOrders(response.data.orders || []);
+        }
+      } catch (err) {
+        console.error('Error fetching orders:', err);
+        setError('Failed to load orders');
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      console.error('Error fetching orders:', err);
-      setError('Failed to load orders');
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+
+    fetchUserOrders();
+  }, [navigate]);
 
   if (loading) {
     return (

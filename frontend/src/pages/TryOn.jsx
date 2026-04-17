@@ -200,7 +200,7 @@ export default function TryOn() {
               onClick={() => fileInputRef.current?.click()}
             >
               {uploadedImage ? (
-                <img src={uploadedImage} alt="Your photo" className="preview-image" />
+                <img src={uploadedImage} alt="Preview" className="preview-image" />
               ) : (
                 <div className="drop-placeholder">
                   <div className="drop-icon">📷</div>

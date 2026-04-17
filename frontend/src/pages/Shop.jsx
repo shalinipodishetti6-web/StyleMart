@@ -16,37 +16,34 @@ export default function Shop() {
   const categories = ['all', 'jeans', 'shirt', 'dress', 'jacket', 'shoes', 'accessories', 'formal', 'casual', 'kids', 'sports'];
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get('http://localhost:5000/api/products');
+        setProducts(response.data.products || []);
+      } catch (err) {
+        console.error('Error fetching products:', err);
+        setError('Failed to load products');
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchProducts();
   }, []);
 
   useEffect(() => {
-    filterAndSortProducts();
-  }, [products, selectedCategory, sortBy, searchParams]);
-
-  const fetchProducts = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/products');
-      setProducts(response.data.products || []);
-    } catch (err) {
-      console.error('Error fetching products:', err);
-      setError('Failed to load products');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const filterAndSortProducts = () => {
     let filtered = [...products];
 
     // Search filter
     const query = searchParams.get('search');
     if (query) {
+      const q = query.toLowerCase();
       filtered = filtered.filter(
         p =>
-          p.name.toLowerCase().includes(query.toLowerCase()) ||
-          p.category.toLowerCase().includes(query.toLowerCase()) ||
-          p.description.toLowerCase().includes(query.toLowerCase())
+          p.name.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q)
       );
     }
 
@@ -73,7 +70,7 @@ export default function Shop() {
     }
 
     setFilteredProducts(filtered);
-  };
+  }, [products, selectedCategory, sortBy, searchParams]);
 
   if (loading) {
     return (
