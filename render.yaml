@@ -14,19 +14,17 @@ services:
       - key: FRONTEND_ORIGIN
         fromService:
           name: stylemart-frontend
-          type: static
+          type: web   # ✅ FIXED
           property: url
-      # Set these in Render dashboard (do not commit secrets):
-      # - MONGODB_URI
-      # - JWT_SECRET
-      # - HF_TOKEN (optional, only if try-on needs it)
 
-  # Frontend (Create React App) static site
-  - type: static
+  # Frontend (React)
+  - type: web   # ✅ FIXED (was static)
     name: stylemart-frontend
+    runtime: node
     rootDir: frontend
+    plan: free
     buildCommand: npm ci || npm install && npm run build
-    staticPublishPath: build
+    startCommand: npm run preview   # ⚠️ important
     autoDeploy: true
     envVars:
       - key: REACT_APP_API_URL
