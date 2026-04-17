@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a4a94" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#ff8c00" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="#f5f5f5"/>
+  <rect x="80" y="80" width="1040" height="640" rx="24" fill="url(#g)" opacity="0.15"/>
+  <rect x="120" y="120" width="960" height="560" rx="20" fill="#ffffff" stroke="#e5e5e5"/>
+  <text x="600" y="330" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="38" fill="#0a4a94" font-weight="700">
+    Custom Design Preview
+  </text>
+  <text x="600" y="400" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#333">
+    Red summer dress with floral patterns
+  </text>
+  <text x="600" y="470" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#666">
+    AI model unavailable; using fallback preview
+  </text>
+</svg>

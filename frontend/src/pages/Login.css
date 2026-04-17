@@ -1,0 +1,141 @@
+.login-page {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  padding: 20px;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-box {
+  background: white;
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.login-box h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--dark-gray);
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  border-left: 4px solid var(--error-color);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark-gray);
+}
+
+.form-group input {
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  background-color: #fafafa;
+  transition: all 0.3s;
+}
+
+.form-group input:focus {
+  background-color: white;
+  border-color: var(--secondary-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.1);
+}
+
+.form-group input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-btn {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 10px;
+}
+
+.login-btn:hover:not(:disabled) {
+  background-color: #ff8c00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 153, 0, 0.3);
+}
+
+.login-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.login-footer {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  border-top: 1px solid var(--border-color);
+  padding-top: 20px;
+}
+
+.login-footer p {
+  margin-bottom: 15px;
+}
+
+.login-footer a {
+  color: var(--secondary-color);
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.login-footer a:hover {
+  color: #ff8c00;
+}
+
+.login-footer span {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 25px;
+  }
+
+  .login-box h1 {
+    font-size: 20px;
+  }
+}
