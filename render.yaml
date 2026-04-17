@@ -1,5 +1,4 @@
 services:
-  # 🔹 Backend API (Node/Express)
   - type: web
     name: stylemart-backend
     runtime: node
@@ -12,21 +11,8 @@ services:
       - key: NODE_ENV
         value: production
       - key: FRONTEND_ORIGIN
-        value: https://stylemart-frontend.onrender.com
-      # Add these in Render dashboard (not here):
+        value: https://your-vercel-app.vercel.app
+      # Add these in Render dashboard (IMPORTANT):
       # - MONGODB_URI
       # - JWT_SECRET
       # - HF_TOKEN (optional)
-
-  # 🔹 Frontend (Create React App)
-  - type: web
-    name: stylemart-frontend
-    runtime: node
-    rootDir: frontend
-    plan: free
-    buildCommand: npm ci || npm install && npm run build
-    startCommand: npx serve -s build
-    autoDeploy: true
-    envVars:
-      - key: REACT_APP_API_URL
-        value: https://stylemart-backend.onrender.com
