@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ProductCard.css';
+import { API_BASE_URL } from '../config';
 
 export default function ProductCard({ product }) {
   const navigate = useNavigate();
   const [imageError, setImageError] = useState(false);
-  const BACKEND = 'http://localhost:5000';
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
@@ -39,7 +39,7 @@ export default function ProductCard({ product }) {
       <div className="product-image">
         {!imageError && product.image ? (
           <img
-            src={product.image.startsWith('http') ? product.image : `${BACKEND}${product.image}`}
+            src={product.image.startsWith('http') ? product.image : `${API_BASE_URL}${product.image}`}
             alt={product.name}
             onError={() => setImageError(true)}
             style={{ display: 'block' }}

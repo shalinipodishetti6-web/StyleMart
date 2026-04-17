@@ -3,6 +3,7 @@ import ProductCard from '../components/ProductCard';
 import './Shop.css';
 import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
+import { API_BASE_URL } from '../config';
 
 export default function Shop() {
   const [products, setProducts] = useState([]);
@@ -19,7 +20,7 @@ export default function Shop() {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5000/api/products');
+        const response = await axios.get(`${API_BASE_URL}/api/products`);
         setProducts(response.data.products || []);
       } catch (err) {
         console.error('Error fetching products:', err);

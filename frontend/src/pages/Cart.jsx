@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css';
+import { API_BASE_URL } from '../config';
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -78,7 +79,7 @@ export default function Cart() {
                     src={item.image
                       ? (item.image.startsWith('http') || item.image.startsWith('data:')
                         ? item.image
-                        : `http://localhost:5000${item.image}`)
+                        : `${API_BASE_URL}${item.image}`)
                       : '/placeholder.jpg'}
                     alt={item.name}
                   />

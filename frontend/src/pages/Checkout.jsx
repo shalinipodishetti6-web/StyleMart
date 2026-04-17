@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Checkout.css';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -96,7 +97,7 @@ export default function Checkout() {
       };
 
       const response = await axios.post(
-        'http://localhost:5000/api/orders',
+        `${API_BASE_URL}/api/orders`,
         orderData,
         {
           headers: {

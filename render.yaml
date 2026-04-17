@@ -1,0 +1,36 @@
+services:
+  # Backend API (Node/Express)
+  - type: web
+    name: stylemart-backend
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm ci || npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: FRONTEND_ORIGIN
+        fromService:
+          name: stylemart-frontend
+          type: static
+          property: url
+      # Set these in Render dashboard (do not commit secrets):
+      # - MONGODB_URI
+      # - JWT_SECRET
+      # - HF_TOKEN (optional, only if try-on needs it)
+
+  # Frontend (Create React App) static site
+  - type: static
+    name: stylemart-frontend
+    rootDir: frontend
+    buildCommand: npm ci || npm install && npm run build
+    staticPublishPath: build
+    autoDeploy: true
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          name: stylemart-backend
+          type: web
+          property: url

@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import './TryOn.css';
-
-const BACKEND = 'http://localhost:5000';
+import { API_BASE_URL } from '../config';
 
 // A local bundled full-body demo photo (in /public folder)
 const DEMO_PHOTO_URL = '/test-person.jpg';
@@ -24,7 +23,7 @@ export default function TryOn() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch(`${BACKEND}/api/products`);
+        const res = await fetch(`${API_BASE_URL}/api/products`);
         const data = await res.json();
         const items = data.products || data || [];
         // Filter to wearable clothing (not shoes/accessories)
@@ -129,11 +128,11 @@ export default function TryOn() {
       // Send the garment image URL so backend can fetch it
       const garmentUrl = selectedProduct.image.startsWith('http')
         ? selectedProduct.image
-        : `${BACKEND}${selectedProduct.image}`;
+        : `${API_BASE_URL}${selectedProduct.image}`;
       formData.append('garmentImageUrl', garmentUrl);
       formData.append('garmentDescription', `${selectedProduct.name}, ${selectedProduct.category} clothing`);
 
-      const res = await fetch(`${BACKEND}/api/tryon`, {
+      const res = await fetch(`${API_BASE_URL}/api/tryon`, {
         method: 'POST',
         body: formData
       });
@@ -142,7 +141,7 @@ export default function TryOn() {
 
       if (data.success) {
         setTryOnResult({
-          image: `${BACKEND}${data.imageUrl}?t=${Date.now()}`,
+          image: `${API_BASE_URL}${data.imageUrl}?t=${Date.now()}`,
           productName: selectedProduct.name,
           product: selectedProduct
         });
@@ -260,7 +259,7 @@ export default function TryOn() {
                     <div className="pick-image-wrap">
                       {product.image ? (
                         <img
-                          src={product.image.startsWith('http') ? product.image : `${BACKEND}${product.image}`}
+                          src={product.image.startsWith('http') ? product.image : `${API_BASE_URL}${product.image}`}
                           alt={product.name}
                           className="pick-product-img"
                           onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }}

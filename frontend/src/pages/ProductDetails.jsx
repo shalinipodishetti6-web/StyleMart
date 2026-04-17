@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ProductDetails.css';
+import { API_BASE_URL } from '../config';
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -14,7 +15,7 @@ export default function ProductDetails() {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const res = await axios.get(`${API_BASE_URL}/api/products/${id}`);
         setProduct(res.data.product || res.data);
       } catch (err) {
         console.error('Failed to fetch product details', err);
@@ -55,7 +56,11 @@ export default function ProductDetails() {
       <div className="product-details-content">
         <div className="product-image-section">
           {product.image ? (
-            <img src={product.image.startsWith('http') ? product.image : `http://localhost:5000${product.image}`} alt={product.name} className="product-main-image" />
+            <img
+              src={product.image.startsWith('http') ? product.image : `${API_BASE_URL}${product.image}`}
+              alt={product.name}
+              className="product-main-image"
+            />
           ) : (
             <div className="image-placeholder">No Image Available</div>
           )}

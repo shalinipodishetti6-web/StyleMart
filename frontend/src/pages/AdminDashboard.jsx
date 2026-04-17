@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminDashboard.css';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('products');
@@ -33,7 +34,7 @@ export default function AdminDashboard() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/products');
+      const response = await axios.get(`${API_BASE_URL}/api/products`);
       setProducts(response.data.products || []);
     } catch (err) {
       console.error('Error fetching products:', err);
@@ -83,14 +84,14 @@ export default function AdminDashboard() {
 
       if (editingProduct) {
         await axios.put(
-          `http://localhost:5000/api/admin/products/${editingProduct._id}`,
+          `${API_BASE_URL}/api/admin/products/${editingProduct._id}`,
           formDataToSend,
           { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } }
         );
         alert('Product updated successfully');
       } else {
         await axios.post(
-          'http://localhost:5000/api/admin/products',
+          `${API_BASE_URL}/api/admin/products`,
           formDataToSend,
           { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } }
         );
@@ -125,7 +126,7 @@ export default function AdminDashboard() {
     try {
       const token = localStorage.getItem('token');
       await axios.delete(
-        `http://localhost:5000/api/admin/products/${productId}`,
+        `${API_BASE_URL}/api/admin/products/${productId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert('Product deleted successfully');
@@ -195,7 +196,7 @@ export default function AdminDashboard() {
                         <td className="product-name-cell">
                           <img
                             src={product.image
-                              ? (product.image.startsWith('http') ? product.image : `http://localhost:5000${product.image}`)
+                              ? (product.image.startsWith('http') ? product.image : `${API_BASE_URL}${product.image}`)
                               : '/placeholder.jpg'}
                             alt={product.name}
                           />

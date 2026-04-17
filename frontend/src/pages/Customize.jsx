@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Customize.css';
+import { API_BASE_URL } from '../config';
 
 export default function Customize() {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ export default function Customize() {
     // Pick the best available "generic" product (category `other` preferred).
     const pickPlaceholder = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/products');
+        const res = await fetch(`${API_BASE_URL}/api/products`);
         const data = await res.json();
         const products = data.products || data || [];
 
@@ -92,7 +93,7 @@ export default function Customize() {
       setLoading(true);
       
       // Send design prompt to backend
-      const res = await fetch('http://localhost:5000/api/customize', {
+      const res = await fetch(`${API_BASE_URL}/api/customize`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -115,7 +116,7 @@ export default function Customize() {
       
       if (data.success && data.imageUrl) {
         // Set the generated image URL from backend
-        setGeneratedImage(`http://localhost:5000${data.imageUrl}`);
+        setGeneratedImage(`${API_BASE_URL}${data.imageUrl}`);
 
         // If backend had to use fallback, show it so it’s obvious.
         if (data.usedFallback) {
